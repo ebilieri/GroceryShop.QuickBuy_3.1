@@ -1,0 +1,126 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <IsPackable>false</IsPackable>
+    <SpaRoot>ClientApp\</SpaRoot>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+
+    <!-- Set this to true if you enable server-side prerendering -->
+    <BuildServerSideRenderer>false</BuildServerSideRenderer>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Content Remove="$(SpaRoot)**" />
+    <None Remove="$(SpaRoot)**" />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\app\loja\carrinho-compras\loja.carrinho.compras.ts" />
+    <None Remove="ClientApp\src\app\loja\efetivar\loja.compra.finalizada.component.css" />
+    <None Remove="ClientApp\src\app\loja\efetivar\loja.compra.finalizada.component.html" />
+    <None Remove="ClientApp\src\app\loja\efetivar\loja.compra.finalizada.component.ts" />
+    <None Remove="ClientApp\src\app\loja\efetivar\loja.efetivar.component.ts" />
+    <None Remove="ClientApp\src\app\loja\pesquisa\loja.pesquisa.component.ts" />
+    <None Remove="ClientApp\src\app\loja\produto\loja.produto.component.ts" />
+    <None Remove="ClientApp\src\app\modelo\itemPedido.ts" />
+    <None Remove="ClientApp\src\app\modelo\pedido.ts" />
+    <None Remove="ClientApp\src\app\modelo\produto.ts" />
+    <None Remove="ClientApp\src\app\modelo\Usuario.ts" />
+    <None Remove="ClientApp\src\app\produto\pesquisa\pesquisa.produto.component.ts" />
+    <None Remove="ClientApp\src\app\produto\produto.component.css" />
+    <None Remove="ClientApp\src\app\produto\produto.component.ts" />
+    <None Remove="ClientApp\src\app\servicos\pedido\pedido.servico.ts" />
+    <None Remove="ClientApp\src\app\servicos\produto\produto.servico.ts" />
+    <None Remove="ClientApp\src\app\servicos\usuario\usuario.servico.ts" />
+    <None Remove="ClientApp\src\app\usuario\cadastro\cadastro.usuario.component.ts" />
+    <None Remove="ClientApp\src\app\usuario\login\login.component.ts" />
+    <None Remove="ClientApp\src\app\autorizacao\guarda.rotas.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\loja\carrinho-compras\loja.carrinho.compras.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\loja\efetivar\loja.compra.finalizada.component.css">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\loja\efetivar\loja.compra.finalizada.component.html">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\loja\efetivar\loja.compra.finalizada.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\loja\efetivar\loja.efetivar.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\loja\pesquisa\loja.pesquisa.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\loja\produto\loja.produto.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modelo\itemPedido.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modelo\pedido.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modelo\produto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\modelo\usuario.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\produto\pesquisa\pesquisa.produto.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\produto\produto.component.css">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\produto\produto.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\servicos\pedido\pedido.servico.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\servicos\produto\produto.servico.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\servicos\usuario\usuario.servico.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\usuario\cadastro\cadastro.usuario.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\usuario\login\login.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\autorizacao\guarda.rotas.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\arquivos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GroceryShop.Repositorio\GroceryShop.Repositorio.csproj" />
+  </ItemGroup>
+
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
+      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+</Project>

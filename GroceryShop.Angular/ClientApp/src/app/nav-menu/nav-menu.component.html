@@ -1,0 +1,39 @@
+<header>
+  <nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3'>
+    <div class="container">
+      <img src="/assets/sale-png-icon.png" alt="Grocery Shop" width="40">
+      <a class="navbar-brand" [routerLink]='["/"]'>&nbsp;Grocery Shop</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded" (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]='{"show": isExpanded}'>
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+            <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="usuarioAdministrador()">
+            <a class="nav-link text-dark" [routerLink]='["/pesquisar-produto"]'>Produto</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="!usuarioAutenticado()">
+            <a class="nav-link text-dark" [routerLink]='["/entrar"]'>Entrar</a>
+          </li>
+          <!--Menu usuario logado no sistema-->
+          <li class="nav-item dropdown" *ngIf="usuarioAutenticado()">
+            <a class="nav-link text-dark dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"
+               id="linkMenu" data-toggle="dropdown" href="#">{{usuario.email}}</a>
+
+            <ul class="dropdown-menu" aria-labelledby="linkMenu">
+              <li class="dropdown-item" role="menu" [routerLink]='[""]' (click)="sair()">Sair</li>
+            </ul>
+          </li>
+          <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="temItensCarrinhoCompras()">
+            <a class="nav-item nav-link text-dark" [routerLink]='["/loja-efetivar-compra"]'>
+              <img src="/assets/carrinho-compras.jpg" style="width:40px;" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

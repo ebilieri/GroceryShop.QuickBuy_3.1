@@ -1,0 +1,7 @@
+.titulo{
+    color: #666;
+}
+
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+  content: "Selecionar";
+}

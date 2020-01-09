@@ -1,0 +1,36 @@
+<div class="d-flex align-items-center mb-2" *ngIf="!produtos">
+  Carregando produtos...
+  <div class="spinner-grow text-secondary" role="status">
+    <span class="sr-only">Carregando produtos...</span>
+  </div>
+  <div class="spinner-grow text-secondary" role="status">
+    <span class="sr-only">Carregando produtos...</span>
+  </div>
+</div>
+
+<div class="album py-0 bg-light" *ngIf="produtos?.length>0">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-3 px-1" *ngFor="let p of produtos">
+
+        <a (click)="abrirProduto(p)" style="cursor:pointer">
+          <div class="card mb-3 shadow-sm">
+            <div class="text-center">
+              <img *ngIf="p.nomeArquivo" src="../../../../../arquivos/{{p.nomeArquivo}}"
+                   title="{{p.nome}}" class="card-top" style="max-height:170px;">
+              <img *ngIf="!p.nomeArquivo" src="/assets/no-image.png" title="{{p.nome}}"
+                   class="card-top" style="max-height:170px;">
+            </div>
+
+            <div class="card-body">
+              <div class="card-text mb-3 text-secondary">{{p.descricao | truncate: 95}}</div>
+              <h5 class="card-text">{{p.preco | currency:'BRL':'symbol':'0.2-2':'pt'}}</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>

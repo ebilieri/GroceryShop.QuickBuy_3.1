@@ -1,0 +1,39 @@
+<h1 class="h3 mb-3 font-weight-normal titulo">Pesquisa de Produtos</h1>
+<button class="btn btn-primary mb-2" (click)="adicionarProduto()">Adicionar Produto</button>
+
+<div class="d-flex align-items-center mb-2" *ngIf="!produtos">
+  Carregando produtos...
+  <div class="spinner-grow text-secondary" role="status">
+    <span class="sr-only">Carregando produtos...</span>
+  </div>
+  <div class="spinner-grow text-secondary" role="status">
+    <span class="sr-only">Carregando produtos...</span>
+  </div>
+</div>
+
+<table class="table table-hover" *ngIf="produtos?.length>0">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Preço</th>
+      <th>Imagem</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of produtos">
+      <td style="width:25%">{{p.nome}}</td>
+      <td style="width:40%">{{p.descricao}}</td>
+      <td style="width:10%">{{p.preco | currency:'BRL':'symbol':'0.2-2':'pt'}}</td>
+      <td>
+        <img *ngIf="p.nomeArquivo" src="../../../../../arquivos/{{p.nomeArquivo}}"
+             title="{{p.nome}}" class="img-thumbnail">
+        <img *ngIf="!p.nomeArquivo" src="/assets/no-image.png" title="{{p.nome}}" class="img-thumbnail">
+      </td>
+      <td><button class="btn btn-success btn-sm" (click)="editarProduto(p)">Editar</button></td>
+      <td><button class="btn btn-danger btn-sm" (click)="deletarProduto(p)">Excluir</button></td>
+    </tr>
+  </tbody>
+</table>
