@@ -14,8 +14,8 @@ namespace GroceryShop.Angular.Controllers
     public class ProdutoController : Controller
     {
         private readonly IProdutoRepositorio _produtoRepositorio;
-        private IHttpContextAccessor _httpContextAccessor;
-        private IWebHostEnvironment _hostingEnvironment;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
         public ProdutoController(IProdutoRepositorio produtoRepositorio,
                                     IHttpContextAccessor httpContextAccessor,
@@ -28,8 +28,10 @@ namespace GroceryShop.Angular.Controllers
 
         private List<string> ObterListaErros(Exception ex)
         {
-            var erros = new List<string>();
-            erros.Add(ex.Message);
+            var erros = new List<string>
+            {
+                ex.Message
+            };
             if (ex.InnerException != null)
                 erros.Add(ex.InnerException.Message);
 
