@@ -15,11 +15,11 @@ namespace GroceryShop.Angular.Controllers
     {
         private readonly IProdutoRepositorio _produtoRepositorio;
         private IHttpContextAccessor _httpContextAccessor;
-        private IHostingEnvironment _hostingEnvironment;
+        private IWebHostEnvironment _hostingEnvironment;
 
         public ProdutoController(IProdutoRepositorio produtoRepositorio,
                                     IHttpContextAccessor httpContextAccessor,
-                                    IHostingEnvironment hostingEnvironment)
+                                    IWebHostEnvironment hostingEnvironment)
         {
             _produtoRepositorio = produtoRepositorio;
             _httpContextAccessor = httpContextAccessor;
