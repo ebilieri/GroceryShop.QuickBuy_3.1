@@ -106,9 +106,9 @@ export class LojaEfetivarComponent implements OnInit {
       itemPedido.quantidade = produto.quantidade;
 
       // adicionar itens pedido
-      pedido.itensPedido.push(itemPedido);
+      pedido.itensPedidos.push(itemPedido);
     }
-
+    
     return pedido;
   }
 

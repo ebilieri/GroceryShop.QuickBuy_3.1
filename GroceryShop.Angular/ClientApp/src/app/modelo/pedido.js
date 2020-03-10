@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Pedido = /** @class */ (function () {
     function Pedido() {
         this.dataPedido = new Date();
-        this.itensPedido = [];
+        this.itensPedidos = [];
     }
     return Pedido;
 }());

@@ -26,7 +26,7 @@ export class PedidoServico implements OnInit {
 
   // metodo para salvar pedido na base de dados
   public efetivarCompra(pedido: Pedido): Observable<number> {
-
+    //console.log(JSON.stringify(pedido));
     return this.http.post<number>(this.baseURL + 'api/pedido', JSON.stringify(pedido), { headers: this.headers });
   }
 

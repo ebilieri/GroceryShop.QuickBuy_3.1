@@ -1,3 +1,6 @@
+using GroceryShop.Dominio.Contratos;
+using GroceryShop.Repositorio.Contexto;
+using GroceryShop.Repositorio.Repositorios;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,11 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using GroceryShop.Dominio.Contratos;
-using GroceryShop.Repositorio.Contexto;
-using GroceryShop.Repositorio.Repositorios;
-using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using System;
 
 namespace GroceryShop.Angular
 {
@@ -20,7 +21,7 @@ namespace GroceryShop.Angular
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
-        {           
+        {
             Configuration = configuration;
         }
 
@@ -29,6 +30,31 @@ namespace GroceryShop.Angular
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Sweggar configuration
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Grocery Shop",
+                    Version = "v1",
+                    Description = "A simple example ASP.NET Core Web API",
+                    TermsOfService = new Uri("https://github.com/ebilieri"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Emerson Bilieri",
+                        Email = string.Empty,
+                        Url = new Uri("https://github.com/ebilieri"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Use under LICX",
+                        Url = new Uri("https://github.com/ebilieri"),
+                    }
+
+                });
+            });
+
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -40,7 +66,7 @@ namespace GroceryShop.Angular
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddMvc().AddNewtonsoftJson(options => { options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; });
-            
+
             // String de conexão com o Banco de dados (MySql)
             //var connectionString = Configuration.GetConnectionString("QuickByConnection");
             var connectionString = Configuration.GetConnectionString("QuickRemoteMysql");
@@ -58,29 +84,8 @@ namespace GroceryShop.Angular
             services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             services.AddScoped<IPedidoRepositorio, PedidoRepositorio>();
-           
-            ////Sweggar configuration
-            //services.AddSwaggerGen(options =>
-            //{
-            //    options.SwaggerDoc("v1",
-            //        new Info
-            //        {
-            //            Title = "QuickBuy Angular APP",
-            //            Version = "v1",
-            //            Description = "Aplicação Angular com ASP.Net Core",
-            //            Contact = new Contact
-            //            {
-            //                Name = "Emerson Bilieri Claudelino",
-            //                Email = "ebilieri@gmail.com",
-            //                Url = "https://github.com/ebilieri"
-            //            },
-            //            License = new License
-            //            {
-            //                Name = "QuickBuy Angular APP",
-            //                Url = "www.groceryshop.com"
-            //            }
-            //        });
-            //});            
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -113,6 +118,16 @@ namespace GroceryShop.Angular
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Grocery Shop Angular v1");
+            });
+
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
@@ -131,16 +146,8 @@ namespace GroceryShop.Angular
                 }
             });
 
-            //// Enable middleware to serve generated Swagger as a JSON endpoint.
-            //app.UseSwagger();
+           
 
-            //// Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-            //// specifying the Swagger JSON endpoint.
-            //app.UseSwaggerUI(c =>
-            //{
-            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "QuickBuy Angular V1");
-            //});
-                       
         }
     }
 }

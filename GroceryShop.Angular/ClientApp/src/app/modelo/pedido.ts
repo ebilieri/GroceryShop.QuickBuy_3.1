@@ -13,11 +13,11 @@ export class Pedido {
   public numeroEndereco: string;
   public formaPagamentoId: number;
 
-  public itensPedido: ItemPedido[];
+  public itensPedidos: ItemPedido[];
 
   constructor() {
     this.dataPedido = new Date();
-    this.itensPedido = [];
+    this.itensPedidos = [];
   }
 
 }
