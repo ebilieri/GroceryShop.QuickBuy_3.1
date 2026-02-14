@@ -54,7 +54,7 @@
   "optionalDependencies": {
     "node-sass": "^4.9.3",
     "protractor": "~5.4.0",
-    "ts-node": "~5.0.1",
-    "tslint": "~5.9.1"
+    "ts-node": "~10.9.2",
+    "tslint": "~5.20.1"
   }
 }
